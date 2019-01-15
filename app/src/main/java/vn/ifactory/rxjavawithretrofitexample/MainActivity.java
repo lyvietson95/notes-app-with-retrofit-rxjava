@@ -1,5 +1,6 @@
 package vn.ifactory.rxjavawithretrofitexample;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView rvNote;
 
     @BindView(R.id.coordinator_layout)
-    CoordinatorLayout coordinatorLayout;
+    ConstraintLayout coordinatorLayout;
 
     @BindView(R.id.tvEmptyNote)
     TextView tvEmptyNote;
@@ -81,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }));
 
     }
-    @OnClick
-    private void fabNoteClick() {
+    @OnClick(R.id.fabNote)
+    public void fabNoteClick(View view) {
         showNoteDialog(false, null, -1);
     }
 
