@@ -13,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import vn.ifactory.rxjavawithretrofitexample.network.model.ResponseHelper;
 import vn.ifactory.rxjavawithretrofitexample.network.model.ToDo;
 import vn.ifactory.rxjavawithretrofitexample.network.model.TokenResponse;
 import vn.ifactory.rxjavawithretrofitexample.network.model.User;
@@ -25,40 +26,40 @@ import vn.ifactory.rxjavawithretrofitexample.network.model.User;
 public interface ApiService {
     // Get token
     @FormUrlEncoded
-    @POST("api/token")
+    @POST("todoservice/token")
     Single<TokenResponse> getToken(@Field("username") String userName,
                                    @Field("password") String password,
                                    @Field("grant_type") String grantType);
 
     // Register new User
     @FormUrlEncoded
-    @POST("api/users")
-    Single<User> register(@Field("user_name") String userName,
-                          @Field("password") String password,
-                          @Field("full_name") String fullName,
-                          @Field("address") String address);
+    @POST("todoservice/api/users")
+    Single<ResponseHelper<User>> register(@Field("user_name") String userName,
+                                         @Field("password") String password,
+                                         @Field("full_name") String fullName,
+                                         @Field("address") String address);
 
     // Create Note
     @FormUrlEncoded
-    @POST("api/todo")
+    @POST("todoservice/api/todo")
     Single<ToDo> createNote(@Field("name") String todoName,
                             @Field("description") String description,
                             @Field("userId") int userId);
 
     // Fetch all notes by user
-    @GET("api/todoes/{id}")
+    @GET("todoservice/api/todoes/{id}")
     Single<List<ToDo>> fetchAllNotes(@Path("id") int userId);
 
     // Update Note
     @FormUrlEncoded
-    @PUT("api/todo")
+    @PUT("todoservice/api/todo")
     Completable updateNote(@Field("todoId") int todoId,
                            @Field("name") String name,
                            @Field("description") String description);
 
     // Delete Note
     @FormUrlEncoded
-    @DELETE("api/todo")
+    @DELETE("todoservice/api/todo")
     Completable deleteNote(@Field("todoId") int todoId);
 
 
