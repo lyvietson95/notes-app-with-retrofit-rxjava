@@ -63,10 +63,10 @@ public class AppConfig extends Application {
 
 
     public static String getToken() {
-        return PREFIX_TOKEN + PrefUtils.getInstance().get(PRE_SESSION_TOKEN, String.class);
+        return PrefUtils.getInstance().get(PRE_SESSION_TOKEN, String.class);
     }
 
     public void setToken(String token) {
-        PrefUtils.getInstance().put(PRE_SESSION_TOKEN, token);
+        PrefUtils.getInstance().put(PRE_SESSION_TOKEN, PREFIX_TOKEN + token);
     }
 }

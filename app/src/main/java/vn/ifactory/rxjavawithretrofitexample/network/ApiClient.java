@@ -19,7 +19,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import vn.ifactory.rxjavawithretrofitexample.AppConfig;
 import vn.ifactory.rxjavawithretrofitexample.app.Const;
+import vn.ifactory.rxjavawithretrofitexample.network.model.ResponseHelper;
 import vn.ifactory.rxjavawithretrofitexample.network.model.TokenResponse;
+import vn.ifactory.rxjavawithretrofitexample.network.model.User;
 import vn.ifactory.rxjavawithretrofitexample.utils.PrefUtils;
 
 /**
@@ -68,13 +70,14 @@ public class ApiClient {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
                 Request original = chain.request();
+
                 Request.Builder requestBuilder = original.newBuilder()
                         .addHeader("Accept", "application/json")
                         .addHeader("Content-Type", "application/json");
 
                 // Adding Authorization token (API Key)
                 // Requests will be denied without API key
-                if (!TextUtils.isEmpty(AppConfig.getToken())) {
+                if (original.url().toString().contains("api")) {
                     requestBuilder.addHeader("Authorization", AppConfig.getToken());
                 }
 
@@ -96,6 +99,10 @@ public class ApiClient {
 
     public Single<TokenResponse> getToken(String userName, String password, String grantType) {
         return apiService.getToken(userName, password, grantType);
+    }
+
+    public Single<ResponseHelper<User>> registerUser(String userName, String password, String fullName, String address){
+        return apiService.register(userName, password, fullName, address);
     }
 
 

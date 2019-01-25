@@ -1,8 +1,11 @@
 package vn.ifactory.rxjavawithretrofitexample.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,12 +27,15 @@ import okhttp3.internal.http2.Http2Connection;
 import vn.ifactory.rxjavawithretrofitexample.AppConfig;
 import vn.ifactory.rxjavawithretrofitexample.MainActivity;
 import vn.ifactory.rxjavawithretrofitexample.R;
+import vn.ifactory.rxjavawithretrofitexample.app.Const;
 import vn.ifactory.rxjavawithretrofitexample.base.BaseActivity;
+import vn.ifactory.rxjavawithretrofitexample.network.model.ResponseHelper;
 import vn.ifactory.rxjavawithretrofitexample.network.model.TokenResponse;
+import vn.ifactory.rxjavawithretrofitexample.network.model.User;
 import vn.ifactory.rxjavawithretrofitexample.utils.AppUtils;
 import vn.ifactory.rxjavawithretrofitexample.utils.PrefUtils;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity{
 
     private static final Logger logger = Logger.getLogger(LoginActivity.class.getSimpleName());
     private final String GRANT_TYPE = "password";
@@ -47,9 +53,6 @@ public class LoginActivity extends BaseActivity {
     Button btLogin;
 
     CompositeDisposable mDispose = new CompositeDisposable();
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +106,18 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tvRegister)
     public void showRegisterDialog(View view) {
-        Toast.makeText(this, "Open register form", Toast.LENGTH_SHORT).show();
+        RegisterFragment registerDialog = RegisterFragment.newInstance();
+
+        registerDialog.show(getSupportFragmentManager(), "register-dialog");
+        registerDialog.setRegisterListener(new RegisterFragment.onRegisterListener() {
+            @Override
+            public void onSuccess(String userName, String password) {
+                edtUserName.setText(userName);
+                edtPassword.setText(password);
+            }
+        });
     }
+
     private void addControls() {
         ButterKnife.bind(this);
     }
@@ -115,4 +128,5 @@ public class LoginActivity extends BaseActivity {
 
         mDispose.clear();
     }
+
 }
