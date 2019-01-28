@@ -6,8 +6,10 @@ import android.text.TextUtils;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
@@ -20,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import vn.ifactory.rxjavawithretrofitexample.AppConfig;
 import vn.ifactory.rxjavawithretrofitexample.app.Const;
 import vn.ifactory.rxjavawithretrofitexample.network.model.ResponseHelper;
+import vn.ifactory.rxjavawithretrofitexample.network.model.ToDo;
 import vn.ifactory.rxjavawithretrofitexample.network.model.TokenResponse;
 import vn.ifactory.rxjavawithretrofitexample.network.model.User;
 import vn.ifactory.rxjavawithretrofitexample.utils.PrefUtils;
@@ -69,6 +72,19 @@ public class ApiClient {
         Interceptor headerAuthorizationInterceptor = new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {
+                // in other case
+                /*Request request = chain.request();
+                // ignore authorized with action Get TOKEN or Register User
+                if (request.url().encodedPath().equalsIgnoreCase("/oauth/token")
+                        || (request.url().encodedPath().equalsIgnoreCase("/api/v1/users") && request.method().equalsIgnoreCase("post"))) {
+                    return  chain.proceed(request);
+                }
+                Request newRequest = request.newBuilder()
+                        .addHeader("Authorization", "Bearer token-here")
+                        .build();
+                Response response = chain.proceed(newRequest);
+                return response;*/
+
                 Request original = chain.request();
 
                 Request.Builder requestBuilder = original.newBuilder()
@@ -97,12 +113,20 @@ public class ApiClient {
     }
 
 
-    public Single<TokenResponse> getToken(String userName, String password, String grantType) {
+    public Observable<TokenResponse> getToken(String userName, String password, String grantType) {
         return apiService.getToken(userName, password, grantType);
     }
 
     public Single<ResponseHelper<User>> registerUser(String userName, String password, String fullName, String address){
         return apiService.register(userName, password, fullName, address);
+    }
+
+    public Single<ResponseHelper<List<ToDo>>> fetchAllNotes(int userId) {
+        return apiService.fetchAllNotes(userId);
+    }
+
+    public Single<ResponseHelper<User>> getUser(String userName, String password) {
+        return apiService.getUser(userName, password);
     }
 
 

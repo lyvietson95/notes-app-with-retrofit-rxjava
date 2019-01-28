@@ -3,6 +3,7 @@ package vn.ifactory.rxjavawithretrofitexample.network;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -27,9 +28,9 @@ public interface ApiService {
     // Get token
     @FormUrlEncoded
     @POST("todoservice/token")
-    Single<TokenResponse> getToken(@Field("username") String userName,
-                                   @Field("password") String password,
-                                   @Field("grant_type") String grantType);
+    Observable<TokenResponse> getToken(@Field("username") String userName,
+                                       @Field("password") String password,
+                                       @Field("grant_type") String grantType);
 
     // Register new User
     @FormUrlEncoded
@@ -38,6 +39,11 @@ public interface ApiService {
                                          @Field("password") String password,
                                          @Field("full_name") String fullName,
                                          @Field("address") String address);
+
+    // Get user by username and password
+    @GET("todoservice/api/users/{username}/{password}")
+    Single<ResponseHelper<User>> getUser(@Path("username") String userName,
+                                        @Path("password") String password);
 
     // Create Note
     @FormUrlEncoded
@@ -48,7 +54,7 @@ public interface ApiService {
 
     // Fetch all notes by user
     @GET("todoservice/api/todoes/{id}")
-    Single<List<ToDo>> fetchAllNotes(@Path("id") int userId);
+    Single<ResponseHelper<List<ToDo>>> fetchAllNotes(@Path("id") int userId);
 
     // Update Note
     @FormUrlEncoded

@@ -76,7 +76,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyHolder>{
      */
     private String formatDate(String dateStr) {
         try {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             Date date = fmt.parse(dateStr);
             SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
             return fmtOut.format(date);
