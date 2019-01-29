@@ -1,8 +1,18 @@
 <resources>
-    <string name="app_name">RxJava Retrofit</string>
+    <string name="app_name">ToDo List</string>
     <string name="action_settings">Settings</string>
-    <string name="activity_title_home">Notes</string>
+    <string name="activity_title_home">List Note</string>
     <string name="msg_no_notes">No notes found!</string>
     <string name="lbl_new_note_title">New Note</string>
-    <string name="hint_enter_note">Enter your note!</string>
+    <string name="lbl_edit_note_title">Edit Note</string>
+    <string name="hint_enter_note_name">Title</string>
+    <string name="hint_enter_note_des">Description</string>
+
+    <string name="title_username">Username</string>
+    <string name="title_password">Password</string>
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
+
+
+
 </resources>
