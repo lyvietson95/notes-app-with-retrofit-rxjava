@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.Headers;
@@ -129,5 +130,16 @@ public class ApiClient {
         return apiService.getUser(userName, password);
     }
 
+    public Single<ResponseHelper<ToDo>> createNote(String noteTitle, String noteDes, int userId) {
+        return apiService.createNote(noteTitle, noteDes, userId);
+    }
+
+    public Completable updateNote(int noteId, String noteTitle, String noteDes) {
+        return apiService.updateNote(noteId, noteTitle, noteDes);
+    }
+
+    public Completable deleteNote(int noteId) {
+        return apiService.deleteNote(noteId);
+    }
 
 }

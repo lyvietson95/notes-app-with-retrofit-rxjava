@@ -10,6 +10,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -48,7 +49,7 @@ public interface ApiService {
     // Create Note
     @FormUrlEncoded
     @POST("todoservice/api/todo")
-    Single<ToDo> createNote(@Field("name") String todoName,
+    Single<ResponseHelper<ToDo>> createNote(@Field("name") String todoName,
                             @Field("description") String description,
                             @Field("userId") int userId);
 
@@ -65,7 +66,7 @@ public interface ApiService {
 
     // Delete Note
     @FormUrlEncoded
-    @DELETE("todoservice/api/todo")
+    @HTTP(method = "DELETE", path = "todoservice/api/todo", hasBody = true)
     Completable deleteNote(@Field("todoId") int todoId);
 
 

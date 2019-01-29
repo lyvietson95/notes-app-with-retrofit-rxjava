@@ -8,6 +8,7 @@
     android:paddingTop="@dimen/activity_margin">
 
     <TextView
+        android:id="@+id/tvTitleNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_10"
@@ -19,12 +20,28 @@
         android:textStyle="normal" />
 
     <EditText
-        android:id="@+id/note"
+        android:padding="5dp"
+        android:textColor="#504e4e"
+        android:id="@+id/edtNoteName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/border_custom"
+        android:hint="@string/hint_enter_note_name"
+        android:inputType="textCapSentences"
+        android:lines="1"
+        android:textColorHint="@color/hint_enter_note"
+        android:textSize="@dimen/input_new_note" />
+
+    <EditText
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#504e4e"
+        android:id="@+id/edtNoteDes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_custom"
         android:gravity="top"
-        android:hint="@string/hint_enter_note"
+        android:hint="@string/hint_enter_note_des"
         android:inputType="textCapSentences|textMultiLine"
         android:lines="4"
         android:textColorHint="@color/hint_enter_note"
